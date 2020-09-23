@@ -167,13 +167,14 @@ func HandlePDUSessionEstablishmentRequest(ue *context.AmfUe, anType models.Acces
 		}
 		pduSession.Dnn = dnn
 
-		smfID, smfUri, err := selectSmf(ue, anType, &pduSession, payload)
-		smfUri = "http://192.168.2.238:29502"
+		//smfID, smfUri, err := selectSmf(ue, anType, &pduSession, payload)
+		var smfID string
+		smfUri := "http://192.168.2.238:29502"
 		fmt.Printf("smfID: %s , smfUri:%s\n",smfID,smfUri)
-		if err != nil {
+		/*if err != nil {
 			logger.GmmLog.Errorf("[AMF] SMF Selection for Snssai[%+v] Failed[%+v]", sNssai, err)
 			return err
-		}
+		}*/
 
 		// Store PduSessionContext For duplicated PDU Session Id
 		if smContext, ok := ue.SmContextList[pduSessionID]; ok {
