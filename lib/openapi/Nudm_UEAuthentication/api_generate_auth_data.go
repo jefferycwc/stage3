@@ -94,10 +94,13 @@ func (a *GenerateAuthDataApiService) GenerateAuthData(ctx context.Context, supiO
 
 	switch localVarHTTPResponse.StatusCode {
 	case 200:
+		fmt.Printf("case 200\n")
 		err = openapi.Deserialize(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			apiError.ErrorStatus = err.Error()
+			fmt.Printf("case 200 error\n")
 		}
+		
 		return localVarReturnValue, localVarHTTPResponse, nil
 	case 400:
 		var v models.ProblemDetails
