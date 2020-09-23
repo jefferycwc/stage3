@@ -47,6 +47,7 @@ func (a *GenerateAuthDataApiService) GenerateAuthData(ctx context.Context, supiO
 	)
 
 	// create path and map variables
+	fmt.Printf("BasePath: %s\n",a.client.cfg.BasePath())
 	localVarPath := a.client.cfg.BasePath() + "/{supiOrSuci}/security-information/generate-auth-data"
 	localVarPath = strings.Replace(localVarPath, "{"+"supiOrSuci"+"}", fmt.Sprintf("%v", supiOrSuci), -1)
 
