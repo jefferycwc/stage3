@@ -102,7 +102,7 @@ func UeAuthPostRequestProcedure(updateAuthenticationInfo models.AuthenticationIn
 
 	//udmUrl := getUdmUrl(self.NrfUri)
 
-	udmUrl :="https://192.168.2.238:29503"
+	udmUrl :="http://192.168.2.238:29503"
 
 
 	fmt.Printf("UDM url: %s\n",udmUrl)
