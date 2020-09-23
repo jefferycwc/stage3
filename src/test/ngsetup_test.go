@@ -1,13 +1,13 @@
 package test_test
 
 import (
-	"flag"
+	//"flag"
 	"fmt"
 	"free5gc/lib/MongoDBLibrary"
 	"free5gc/lib/nas/security"
 	"free5gc/lib/ngap"
 	"free5gc/lib/ngap/ngapSctp"
-	"free5gc/lib/path_util"
+	//"free5gc/lib/path_util"
 	amf_service "free5gc/src/amf/service"
 	"free5gc/src/app"
 	ausf_service "free5gc/src/ausf/service"
@@ -18,16 +18,16 @@ import (
 	"free5gc/src/test"
 	udm_service "free5gc/src/udm/service"
 	udr_service "free5gc/src/udr/service"
-	"log"
+	//"log"
 	"net"
-	"os"
+	//"os"
 	"sync"
 	"testing"
-	"time"
+	//"time"
 
 	"git.cs.nctu.edu.tw/calee/sctp"
 	"github.com/stretchr/testify/assert"
-	"github.com/urfave/cli"
+	//"github.com/urfave/cli"
 )
 
 var NFs = []app.NetworkFunction{
@@ -43,7 +43,7 @@ var NFs = []app.NetworkFunction{
 }
 
 func init() {
-	var init bool = true
+     /*	var init bool = true
 
 	for _, arg := range os.Args {
 		if arg == "noinit" {
@@ -70,7 +70,8 @@ func init() {
 	} else {
 		MongoDBLibrary.SetMongoDB("free5gc", "mongodb://127.0.0.1:27017")
 		fmt.Println("MongoDB Set")
-	}
+	}*/
+	MongoDBLibrary.SetMongoDB("free5gc", "mongodb://192.168.2.238:27017")
 
 }
 
