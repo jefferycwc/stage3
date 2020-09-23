@@ -73,20 +73,20 @@ func (a *GenerateAuthDataApiService) GenerateAuthData(ctx context.Context, supiO
 
 	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		fmt.printf("error1\n")
+		fmt.Printf("error1\n")
 		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := openapi.CallAPI(a.client.cfg, r)
 	if err != nil || localVarHTTPResponse == nil {
-		fmt.printf("error2\n")
+		fmt.Printf("error2\n")
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
-		fmt.printf("error3\n")
+		fmt.Printf("error3\n")
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
