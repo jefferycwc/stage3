@@ -1,0 +1,296 @@
+version: '3.8'
+
+services:
+  free5gc-upf-1:
+    container_name: upf1
+    build:
+      context: ./nf_upf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./free5gc-upfd -f ../config/upfcfg.yaml
+    volumes:
+      - "./config/upfcfg1.yaml:/free5gc/config/upfcfg.yaml"
+    cap_add:
+      - NET_ADMIN
+    networks:
+      privnet:
+        aliases:
+          - upf1
+
+  free5gc-upf-2:
+    container_name: upf2
+    build:
+      context: ./nf_upf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./free5gc-upfd -f ../config/upfcfg.yaml
+    volumes:
+      - ./config/upfcfg2.yaml:/free5gc/config/upfcfg.yaml
+    cap_add:
+      - NET_ADMIN
+    networks:
+      privnet:
+        aliases:
+          - upf2
+
+  free5gc-upf-b:
+    container_name: upfb
+    build:
+      context: ./nf_upf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./free5gc-upfd -f ../config/upfcfg.yaml
+    volumes:
+      - ./config/upfcfgb.yaml:/free5gc/config/upfcfg.yaml
+    cap_add:
+      - NET_ADMIN
+    networks:
+      privnet:
+        aliases:
+          - upfb
+
+  db:
+    container_name: mongodb
+    image: mongo
+    command: mongod --port 27017
+    expose:
+      - "27017"
+    volumes:
+      - dbdata:/data/db
+    networks:
+      privnet:
+        aliases:
+          - db
+
+  free5gc-nrf:
+    container_name: nrf
+    build:
+      context: ./nf_nrf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./nrf -nrfcfg ../config/nrfcfg.conf
+    expose:
+      - "29510"
+    volumes:
+      - ./config/nrfcfg.conf:/free5gc/config/nrfcfg.conf
+      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
+    environment:
+      DB_URI: mongodb://db/free5gc
+      GIN_MODE: release
+    networks:
+      privnet:
+        aliases:
+          - nrf
+    depends_on:
+      - db
+
+  free5gc-amf:
+    container_name: amf
+    build:
+      context: ./nf_amf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./amf -amfcfg ../config/amfcfg.conf
+    expose:
+      - "29518"
+    volumes:
+      - ./config/amfcfg.conf:/free5gc/config/amfcfg.conf
+      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
+    environment:
+      GIN_MODE: release
+    networks:
+      privnet:
+        aliases:
+          - amf
+    depends_on:
+      - free5gc-nrf
+
+  free5gc-ausf:
+    container_name: ausf
+    build:
+      context: ./nf_ausf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./ausf -ausfcfg ../config/ausfcfg.conf
+    expose:
+      - "29509"
+    volumes:
+      - ./config/ausfcfg.conf:/free5gc/config/ausfcfg.conf
+      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
+    environment:
+      GIN_MODE: release
+    networks:
+      privnet:
+        aliases:
+          - ausf
+    depends_on:
+      - free5gc-nrf
+
+  free5gc-nssf:
+    container_name: nssf
+    build:
+      context: ./nf_nssf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./nssf -nssfcfg ../config/nssfcfg.conf
+    expose:
+      - "29531"
+    volumes:
+      - ./config/nssfcfg.conf:/free5gc/config/nssfcfg.conf
+      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
+    environment:
+      GIN_MODE: release
+    networks:
+      privnet:
+        aliases:
+          - nssf
+    depends_on:
+      - free5gc-nrf
+
+  free5gc-pcf:
+    container_name: pcf
+    build:
+      context: ./nf_pcf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./pcf -pcfcfg ../config/pcfcfg.conf
+    expose:
+      - "29507"
+    volumes:
+      - ./config/pcfcfg.conf:/free5gc/config/pcfcfg.conf
+      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
+    environment:
+      GIN_MODE: release
+    networks:
+      privnet:
+        aliases:
+          - pcf
+    depends_on:
+      - free5gc-nrf
+
+  free5gc-smf:
+    container_name: smf
+    build:
+      context: ./nf_smf
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./smf -smfcfg ../config/smfcfg.conf -uerouting ../config/uerouting.yaml
+    expose:
+      - "29502"
+    volumes:
+      - ./config/smfcfg.conf:/free5gc/config/smfcfg.conf
+      - ./config/uerouting.yaml:/free5gc/config/uerouting.yaml
+      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
+    environment:
+      GIN_MODE: release
+    networks:
+      privnet:
+        aliases:
+          - smf
+    depends_on:
+      - free5gc-nrf
+      - free5gc-upf-1
+      - free5gc-upf-2
+      - free5gc-upf-b
+
+  free5gc-udm:
+    container_name: udm
+    build:
+      context: ./nf_udm
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./udm -udmcfg ../config/udmcfg.conf
+    expose:
+      - "29503"
+    volumes:
+      - ./config/udmcfg.conf:/free5gc/config/udmcfg.conf
+      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
+    environment:
+      GIN_MODE: release
+    networks:
+      privnet:
+        aliases:
+          - udm
+    depends_on:
+      - db
+      - free5gc-nrf
+
+  free5gc-udr:
+    container_name: udr
+    build:
+      context: ./nf_udr
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./udr -udrcfg ../config/udrcfg.conf
+    expose:
+      - "29504"
+    environment:
+      GIN_MODE: release
+    volumes:
+      - ./config/udrcfg.conf:/free5gc/config/udrcfg.conf
+      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
+    environment:
+      DB_URI: mongodb://db/free5gc
+      GIN_MODE: release
+    networks:
+      privnet:
+        aliases:
+          - udr
+    depends_on:
+      - db
+      - free5gc-nrf
+
+  free5gc-n3iwf:
+    container_name: n3iwf
+    build:
+      context: ./nf_n3iwf
+      args:
+        DEBUG_TOOLS: "false"
+    command: sh -c "./n3iwf-ipsec.sh && ./n3iwf -n3iwfcfg ../config/n3iwfcfg.conf"
+    volumes:
+      - ./config/n3iwfcfg.conf:/free5gc/config/n3iwfcfg.conf
+      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
+      - ./config/n3iwf-ipsec.sh:/free5gc/n3iwf/n3iwf-ipsec.sh
+    environment:
+      GIN_MODE: release
+    cap_add:
+      - NET_ADMIN
+    networks:
+      privnet:
+        aliases:
+          - n3iwf
+    depends_on:
+      - free5gc-amf
+      - free5gc-smf
+      - free5gc-upf-b
+
+  free5gc-webui:
+    container_name: webui
+    build:
+      context: ./webui
+      args:
+        DEBUG_TOOLS: "false"
+    command: ./webui
+    volumes:
+      - ./config/webuicfg.conf:/free5gc/config/webuicfg.conf
+      - ./config/free5GC.conf:/free5gc/config/free5GC.conf
+    environment:
+      - GIN_MODE=release
+    networks:
+      privnet:
+        aliases:
+          - webui
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
+networks:
+  privnet:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.100.200.0/24
+
+volumes:
+  dbdata:
