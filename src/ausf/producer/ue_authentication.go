@@ -100,8 +100,8 @@ func UeAuthPostRequestProcedure(updateAuthenticationInfo models.AuthenticationIn
 	self := ausf_context.GetSelf()
 	authInfoReq.AusfInstanceId = self.GetSelfID()
 
-	udmUrl := getUdmUrl(self.NrfUri)
-	//udmUrl :="https://192.168.2.238:29503"
+	//udmUrl := getUdmUrl(self.NrfUri)
+	udmUrl :="https://192.168.2.238:29503"
 	fmt.Printf("UDM url: %s\n",udmUrl)
 	client := createClientToUdmUeau(udmUrl)
 	authInfoResult, _, err := client.GenerateAuthDataApi.GenerateAuthData(context.Background(), supiOrSuci, authInfoReq)
