@@ -115,6 +115,7 @@ func (a *GenerateAuthDataApiService) GenerateAuthData(ctx context.Context, supiO
 		apiError.ErrorModel = v
 		return localVarReturnValue, localVarHTTPResponse, apiError
 	case 403:
+		fmt.Printf("case 403\n")
 		var v models.ProblemDetails
 		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
