@@ -7,7 +7,7 @@ import (
 	"free5gc/lib/openapi/Nnssf_NSSelection"
 	"free5gc/lib/openapi/models"
 	amf_context "free5gc/src/amf/context"
-
+        "fmt"
 	"github.com/antihax/optional"
 )
 
@@ -48,6 +48,7 @@ func NSSelectionGetForRegistration(ue *amf_context.AmfUe, requestedNssai []model
 }
 
 func NSSelectionGetForPduSession(ue *amf_context.AmfUe, snssai models.Snssai) (response *models.AuthorizedNetworkSliceInfo, problemDetails *models.ProblemDetails, err error) {
+	fmt.Printf("enter\n")
 	configuration := Nnssf_NSSelection.NewConfiguration()
 	configuration.SetBasePath(ue.NssfUri)
 	client := Nnssf_NSSelection.NewAPIClient(configuration)

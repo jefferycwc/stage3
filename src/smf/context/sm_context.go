@@ -207,6 +207,7 @@ func (smContext *SMContext) PCFSelection() (err error) {
 
 	rep, res, err := SMF_Self().NFDiscoveryClient.NFInstancesStoreApi.SearchNFInstances(context.TODO(), models.NfType_PCF, models.NfType_SMF, &localVarOptionals)
 	if err != nil {
+		fmt.Printf("check1\n")
 		return
 	}
 
@@ -217,14 +218,17 @@ func (smContext *SMContext) PCFSelection() (err error) {
 
 			logger.CtxLog.Warningf("NFDiscovery PCF return status: %d\n", status)
 			logger.CtxLog.Warningf("Detail: %v\n", problemDetails.Title)
+			//fmt.Printf("Find PCF status not ok\n")
+			fmt.Printf("check2\n")
 		}
 	}
-
+        fmt.Printf("check3\n")
 	// Select PCF from available PCF
 
 	smContext.SelectedPCFProfile = rep.NfInstances[0]
-
+        fmt.Printf("check4\n")
 	SelectedPCFProfileString, _ := json.MarshalIndent(smContext.SelectedPCFProfile, "", "  ")
+        fmt.Printf("Select PCF Profile: %s\n", SelectedPCFProfileString)
 	logger.CtxLog.Tracef("Select PCF Profile: %s\n", SelectedPCFProfileString)
 
 	// Create SMPolicyControl Client for this SM Context

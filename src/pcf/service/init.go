@@ -22,7 +22,7 @@ import (
 	"free5gc/src/pcf/util"
 	"os/exec"
 	"sync"
-
+        "strings"
 	"github.com/gin-contrib/cors"
 
 	"free5gc/src/pcf/factory"
@@ -145,15 +145,26 @@ func (pcf *PCF) Start() {
 	// subscribe to all Amfs' status change
 	amfInfos := consumer.SearchAvailableAMFs(self.NrfUri, models.ServiceName_NAMF_COMM)
 	for _, amfInfo := range amfInfos {
+		fmt.Printf("AMF info: %s\n",amfInfo.AmfUri)
 		guamiList := util.GetNotSubscribedGuamis(amfInfo.GuamiList)
+		//fmt.Printf("len=%d\n",len(guamiList))
 		if len(guamiList) == 0 {
+			//fmt.Printf("0\n")
 			continue
+		}
+		var a int = strings.Compare(amfInfo.AmfUri,"http://127.0.0.1:29518")
+		//fmt.Printf("a=%d\n",a)
+	        if a==0 {
+		   continue
 		}
 		problemDetails, err := consumer.AmfStatusChangeSubscribe(amfInfo)
 		if problemDetails != nil {
 			logger.InitLog.Warnf("AMF status subscribe Failed[%+v]", problemDetails)
 		} else if err != nil {
 			logger.InitLog.Warnf("AMF status subscribe Error[%+v]", err)
+		} else {
+		        fmt.Printf("Ok\n")
+			break
 		}
 	}
 

@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/hex"
 
-	// "fmt"
+	"fmt"
 	"github.com/antihax/optional"
 	// "free5gc/lib/CommonConsumerTestData/UDM/TestGenAuthData"
 	"free5gc/lib/UeauCommon"
@@ -24,7 +24,7 @@ func HandleGenerateAuthData(respChan chan udm_message.HandlerResponseMessage, su
 	var response models.AuthenticationInfoResult
 	var problemDetails models.ProblemDetails
 	rand.Seed(time.Now().UnixNano())
-
+        fmt.Printf("HandleGenerateAuthData\n")
 	supi, suciToSupiErr := suci.ToSupi(supiOrSuci)
 	if suciToSupiErr != nil {
 		logger.UeauLog.Errorln("suciToSupi error: ", suciToSupiErr.Error())

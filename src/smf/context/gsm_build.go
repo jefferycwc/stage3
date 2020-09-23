@@ -5,8 +5,8 @@ import (
 	"free5gc/lib/nas/nasConvert"
 	"free5gc/lib/nas/nasMessage"
 	"free5gc/lib/nas/nasType"
-	"free5gc/src/smf/logger"
-	"net"
+	//"free5gc/src/smf/logger"
+	//"net"
 	// "free5gc/lib/nas/nasType"
 	"free5gc/lib/openapi/models"
 )
@@ -87,7 +87,7 @@ func BuildGSMPDUSessionEstablishmentAccept(smContext *SMContext) ([]byte, error)
 	// pDUSessionEstablishmentAccept.AuthorizedQosFlowDescriptions.SetLen(6)
 	// pDUSessionEstablishmentAccept.SetQoSFlowDescriptions([]uint8{0x09, 0x20, 0x41, 0x01, 0x01, 0x09})
 
-	if smContext.ProtocolConfigurationOptions.DNSIPv4Request || smContext.ProtocolConfigurationOptions.DNSIPv6Request {
+	/*if smContext.ProtocolConfigurationOptions.DNSIPv4Request || smContext.ProtocolConfigurationOptions.DNSIPv6Request {
 		dnnInfo, exist := SMF_Self().DNNInfo[smContext.Dnn]
 		if !exist {
 			logger.GsmLog.Warnf("No default DNS IP for DNN [%s]\n", smContext.Dnn)
@@ -118,7 +118,7 @@ func BuildGSMPDUSessionEstablishmentAccept(smContext *SMContext) ([]byte, error)
 
 		}
 
-	}
+	}*/
 	return m.PlainNasEncode()
 }
 

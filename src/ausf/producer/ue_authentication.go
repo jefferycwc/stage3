@@ -101,15 +101,20 @@ func UeAuthPostRequestProcedure(updateAuthenticationInfo models.AuthenticationIn
 	authInfoReq.AusfInstanceId = self.GetSelfID()
 
 	udmUrl := getUdmUrl(self.NrfUri)
+	//udmUrl :="https://192.168.2.238:29503"
+	fmt.Printf("UDM url: %s\n",udmUrl)
 	client := createClientToUdmUeau(udmUrl)
 	authInfoResult, _, err := client.GenerateAuthDataApi.GenerateAuthData(context.Background(), supiOrSuci, authInfoReq)
 	if err != nil {
+		fmt.Printf("Have Error\n")
 		logger.UeAuthPostLog.Infoln(err.Error())
 		var problemDetails models.ProblemDetails
 		if authInfoResult.AuthenticationVector == nil {
 			problemDetails.Cause = "AV_GENERATION_PROBLEM"
+		        fmt.Printf("Error 1\n")
 		} else {
 			problemDetails.Cause = "UPSTREAM_SERVER_ERROR"
+		        fmt.Printf("Error 2\n")
 		}
 		return nil, "", &problemDetails
 	}

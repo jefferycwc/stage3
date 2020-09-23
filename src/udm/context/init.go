@@ -29,7 +29,7 @@ func InitUDMContext(context *UDMContext) {
 	sbi := configuration.Sbi
 	context.UriScheme = models.UriScheme(sbi.Scheme)
 	context.HttpIpv4Port = 29503
-	context.HttpIPv4Address = "127.0.0.1"
+	context.HttpIPv4Address = "192.168.2.238"
 	if sbi != nil {
 		if sbi.IPv4Addr != "" {
 			context.HttpIPv4Address = sbi.IPv4Addr

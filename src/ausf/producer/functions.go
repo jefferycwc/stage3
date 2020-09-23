@@ -264,6 +264,7 @@ func getUdmUrl(nrfUri string) string {
 	} else {
 		logger.UeAuthPostLog.Errorln("[Search UDM UEAU] len(NfInstances) = 0")
 	}
+	//udmUrl := "https://192.168.2.238:29503"
 	return udmUrl
 }
 
