@@ -8,7 +8,7 @@ import (
 	amf_context "free5gc/src/amf/context"
 	"free5gc/src/amf/logger"
 	"regexp"
-	"fmt"
+	//"fmt"
 )
 
 func AMPolicyControlCreate(ue *amf_context.AmfUe, anType models.AccessType) (problemDetails *models.ProblemDetails, err error) {
