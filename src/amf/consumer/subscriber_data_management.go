@@ -132,7 +132,8 @@ func SDMSubscribe(ue *amf_context.AmfUe) (problemDetails *models.ProblemDetails,
 
 func SDMGetSliceSelectionSubscriptionData(ue *amf_context.AmfUe) (problemDetails *models.ProblemDetails, err error) {
 	configuration := Nudm_SubscriberDataManagement.NewConfiguration()
-	configuration.SetBasePath(ue.NudmSDMUri)
+	udmUrl :="http://192.168.2.238:29503"
+	configuration.SetBasePath(udmUrl)
 	client := Nudm_SubscriberDataManagement.NewAPIClient(configuration)
 
 	paramOpt := Nudm_SubscriberDataManagement.GetNssaiParamOpts{
