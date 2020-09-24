@@ -29,7 +29,9 @@ func PutUpuAck(ue *amf_context.AmfUe, upuMacIue string) error {
 func SDMGetAmData(ue *amf_context.AmfUe) (problemDetails *models.ProblemDetails, err error) {
 
 	configuration := Nudm_SubscriberDataManagement.NewConfiguration()
-	configuration.SetBasePath(ue.NudmSDMUri)
+	udmUrl :="http://192.168.2.238:29503"
+	configuration.SetBasePath(udmUrl)
+	//configuration.SetBasePath(ue.NudmSDMUri)
 	client := Nudm_SubscriberDataManagement.NewAPIClient(configuration)
 
 	getAmDataParamOpt := Nudm_SubscriberDataManagement.GetAmDataParamOpts{
