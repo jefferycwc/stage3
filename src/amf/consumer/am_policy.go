@@ -14,9 +14,11 @@ import (
 func AMPolicyControlCreate(ue *amf_context.AmfUe, anType models.AccessType) (problemDetails *models.ProblemDetails, err error) {
 
 	configuration := Npcf_AMPolicy.NewConfiguration()
-	fmt.Printf("Pcf Uri: %s\n",ue.PcfUri)
+	//fmt.Printf("Pcf Uri: %s\n",ue.PcfUri)
 	//ue.PcfUri = "http://192.168.2.238:29507" 
-	configuration.SetBasePath(ue.PcfUri)
+	PcfUri := "http://192.168.2.238:29507"
+	configuration.SetBasePath(PcfUri)
+	//configuration.SetBasePath(ue.PcfUri)
 	client := Npcf_AMPolicy.NewAPIClient(configuration)
 
 	amfSelf := amf_context.AMF_Self()
