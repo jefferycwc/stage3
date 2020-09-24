@@ -23,7 +23,8 @@ import (
 func createUDMClientToUDR(id string, nonUe bool) *Nudr_DataRepository.APIClient {
 	var addr string
 	if !nonUe {
-		addr = getUdrUri(id)
+		//addr = getUdrUri(id)
+		addr :="http://192.168.2.238:29503"
 	}
 	if addr == "" {
 		// dafault
