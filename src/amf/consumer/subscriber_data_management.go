@@ -111,7 +111,9 @@ func SDMGetUeContextInSmfData(ue *amf_context.AmfUe) (problemDetails *models.Pro
 func SDMSubscribe(ue *amf_context.AmfUe) (problemDetails *models.ProblemDetails, err error) {
 
 	configuration := Nudm_SubscriberDataManagement.NewConfiguration()
-	configuration.SetBasePath(ue.NudmSDMUri)
+	udmUrl :="http://192.168.2.238:29503"
+	configuration.SetBasePath(udmUrl)
+	//configuration.SetBasePath(ue.NudmSDMUri)
 	client := Nudm_SubscriberDataManagement.NewAPIClient(configuration)
 
 	amfSelf := amf_context.AMF_Self()
