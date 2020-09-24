@@ -235,6 +235,7 @@ func (smContext *SMContext) PCFSelection() (err error) {
 	for _, service := range *smContext.SelectedPCFProfile.NfServices {
 		if service.ServiceName == models.ServiceName_NPCF_SMPOLICYCONTROL {
 			SmPolicyControlConf := Npcf_SMPolicyControl.NewConfiguration()
+			service.ApiPrefix = "http://192.168.2.238:29507"
 			SmPolicyControlConf.SetBasePath(service.ApiPrefix)
 			smContext.SMPolicyClient = Npcf_SMPolicyControl.NewAPIClient(SmPolicyControlConf)
 		}
