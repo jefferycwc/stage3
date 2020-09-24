@@ -64,6 +64,7 @@ func (a *SessionManagementSubscriptionDataRetrievalApiService) GetSmData(ctx con
 	)
 
 	// create path and map variables
+	fmt.Printf("smf get udm uri:%s\n",a.client.cfg.BasePath())
 	localVarPath := a.client.cfg.BasePath() + "/{supi}/sm-data"
 	localVarPath = strings.Replace(localVarPath, "{"+"supi"+"}", fmt.Sprintf("%v", supi), -1)
 
