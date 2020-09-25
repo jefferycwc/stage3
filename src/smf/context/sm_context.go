@@ -228,14 +228,14 @@ func (smContext *SMContext) PCFSelection() (err error) {
 	smContext.SelectedPCFProfile = rep.NfInstances[0]
         fmt.Printf("check4\n")
 	SelectedPCFProfileString, _ := json.MarshalIndent(smContext.SelectedPCFProfile, "", "  ")
-        fmt.Printf("Select PCF Profile: %s\n", SelectedPCFProfileString)
+        fSmt.Printf("Select PCF Profile: %s\n", SelectedPCFProfileString)
 	logger.CtxLog.Tracef("Select PCF Profile: %s\n", SelectedPCFProfileString)
 
 	// Create SMPolicyControl Client for this SM Context
 	for _, service := range *smContext.SelectedPCFProfile.NfServices {
 		if service.ServiceName == models.ServiceName_NPCF_SMPOLICYCONTROL {
 			SmPolicyControlConf := Npcf_SMPolicyControl.NewConfiguration()
-			service.ApiPrefix = "http://192.168.2.238:29507"
+			service.ApiPrefix = "http://192.168.2.105:29507"
 			SmPolicyControlConf.SetBasePath(service.ApiPrefix)
 			smContext.SMPolicyClient = Npcf_SMPolicyControl.NewAPIClient(SmPolicyControlConf)
 		}

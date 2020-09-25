@@ -160,7 +160,7 @@ func PostPolicies(httpChannel chan message.HttpResponseMessage, request models.P
 		}
 	}
 	//udrUri := getUdrUri(ue)
-	udrUri := "http://192.168.2.238:29504"
+	udrUri := "http://192.168.2.104:29504"
 	if udrUri == "" {
 		// Can't find any UDR support this Ue
 		delete(pcfSelf.UePool, ue.Supi)
