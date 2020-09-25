@@ -11,7 +11,7 @@ import (
 func UeCmRegistration(ue *amf_context.AmfUe, accessType models.AccessType, initialRegistrationInd bool) (problemDetails *models.ProblemDetails, err error) {
 
 	configuration := Nudm_UEContextManagement.NewConfiguration()
-	udmUrl :="http://192.168.2.238:29503"
+	udmUrl :="http://192.168.2.106:29503"
 	configuration.SetBasePath(udmUrl)
 	//configuration.SetBasePath(ue.NudmUECMUri)
 	client := Nudm_UEContextManagement.NewAPIClient(configuration)
