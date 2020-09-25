@@ -228,7 +228,7 @@ func (smContext *SMContext) PCFSelection() (err error) {
 	smContext.SelectedPCFProfile = rep.NfInstances[0]
         fmt.Printf("check4\n")
 	SelectedPCFProfileString, _ := json.MarshalIndent(smContext.SelectedPCFProfile, "", "  ")
-        fSmt.Printf("Select PCF Profile: %s\n", SelectedPCFProfileString)
+        fmt.Printf("Select PCF Profile: %s\n", SelectedPCFProfileString)
 	logger.CtxLog.Tracef("Select PCF Profile: %s\n", SelectedPCFProfileString)
 
 	// Create SMPolicyControl Client for this SM Context
