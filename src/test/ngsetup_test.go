@@ -71,7 +71,7 @@ func init() {
 		MongoDBLibrary.SetMongoDB("free5gc", "mongodb://127.0.0.1:27017")
 		fmt.Println("MongoDB Set")
 	}*/
-	MongoDBLibrary.SetMongoDB("free5gc", "mongodb://192.168.2.238:27017")
+	MongoDBLibrary.SetMongoDB("free5gc", "mongodb://192.168.2.110:27017")
 
 }
 
