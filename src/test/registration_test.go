@@ -45,9 +45,9 @@ var udpInterval time.Duration = 100 * time.Nanosecond
 var udpPacketCount int =        15000
 var totalUdpPacket int = 120000000000
 
-const ranIpAddr string = "192.168.2.65"
-const amfIpAddr string = "192.168.2.238" // no need to change
-const upfIpAddr string = "192.168.2.138" // 110, 111
+const ranIpAddr string = "192.168.2.53"
+const amfIpAddr string = "192.168.2.102" // no need to change
+const upfIpAddr string = "192.168.2.111" // 110, 111
 const dNServer  string = "192.168.2.49" // 205, 206
 var dNServerI = [4]byte{192, 168, 2, 49} // 205, 206
 
@@ -160,7 +160,7 @@ func TestRegistration(t *testing.T) {
 	var recvMsg = make([]byte, 2048)
 
 	// RAN connect to AMF
-	conn, err := conntectToAmf(amfIpAddr, "192.168.2.65", 38412, 9487)
+	conn, err := conntectToAmf(amfIpAddr, ranIpAddr, 38412, 9487)
 	assert.Nil(t, err)
         fmt.Printf("RAN connect to AMF\n")
 	// RAN connect to UPF
